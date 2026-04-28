@@ -60,21 +60,21 @@
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="m_startStopButton">
+     <widget class="QPushButton" name="startStopButton">
       <property name="text">
        <string>Старт</string>
       </property>
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="m_clearButton">
+     <widget class="QPushButton" name="clearButton">
       <property name="text">
        <string>Очистить</string>
       </property>
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="m_lapButton">
+     <widget class="QPushButton" name="lapButton">
       <property name="text">
        <string>Круг</string>
       </property>

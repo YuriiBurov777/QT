@@ -23,13 +23,13 @@ void Stopwatch::start()
 void Stopwatch::stop()
 {
     m_timer->stop();
+    m_lastLapTime = 0;
 }
 // Сбросить секундомер
 void Stopwatch::reset()
 {
-    m_timer->stop();
+   // m_timer->stop();
     m_lapCounter = 0;
-    m_lastLapTime = 0;
     emit timeUpdated("0.0");
 }
 //Вычисляет текущее время и отправляет сигнал
@@ -40,7 +40,7 @@ void Stopwatch::updateTime()
     emit timeUpdated(QString::number(seconds, 'f', 1));
 }
 //Вычисляет время от предыдущего круга и отправляет сигнал
-int Stopwatch::getLapTime()
+QString Stopwatch::getLapTime()
 {
     m_lapCounter++;
     int currentTime = m_elapsedTimer.elapsed() / 100;
@@ -48,9 +48,7 @@ int Stopwatch::getLapTime()
     m_lastLapTime = currentTime;
 
     double lapSeconds = lapTime / 10.0;
-    emit lapRecorded(QString("Круг %1, время: %2 сек")
-                     .arg(m_lapCounter)
-                     .arg(QString::number(lapSeconds, 'f', 1)));
-
-    return lapTime;
+    return QString("Круг %1, время: %2 сек")
+           .arg(m_lapCounter)
+           .arg(QString::number(lapSeconds, 'f', 1));
 }

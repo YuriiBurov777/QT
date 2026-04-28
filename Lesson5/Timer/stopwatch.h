@@ -15,7 +15,7 @@ public:
     void start();
     void stop();
     void reset();
-    int getLapTime();
+    QString getLapTime();
 
 signals:
     void timeUpdated(const QString &time);

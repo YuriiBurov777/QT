@@ -18,17 +18,17 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_m_startStopButton_clicked();
-    void on_m_clearButton_clicked();
-    void on_m_lapButton_clicked();
+    void on_startStopButton_clicked();
+    void on_clearButton_clicked();
+    void on_lapButton_clicked();
 
     void updateTimeDisplay(const QString &time);
-    void addLapToBrowser(const QString &lapInfo);
+    //void addLapToBrowser(const QString &lapInfo);
 
 
 private:
     Ui::MainWindow *ui;
-    Stopwatch *m_stopwatch;
+    Stopwatch *_StopWatch;
     bool m_isRunning;
 };
 
