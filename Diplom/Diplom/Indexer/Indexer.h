@@ -9,6 +9,11 @@
 class Indexer
 {
 public:
+    // Константы для обработки текста
+    static constexpr int MIN_WORD_LENGTH = 3;
+    static constexpr int MAX_WORD_LENGTH = 32;
+    static constexpr int MAX_FILES_TO_PROCESS = 10000;
+
     Indexer();
     //Загрузка конфигурации из ini-файла
     bool loadConfig(const QString& configPath);
@@ -30,6 +35,9 @@ private:
     QStringList m_directories;
     QStringList m_extensions;
     bool m_configLoaded;
+
+    // Для проверки дубликатов
+    QSet<QString> m_processedFiles;
 };
 
 #endif // INDEXER_H

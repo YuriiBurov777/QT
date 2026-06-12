@@ -2,6 +2,7 @@
 #include <QSqlError>
 #include <QDebug>
 #include <QFileInfo>
+#include <Windows.h>
 
 //Деструктор - закрывает соединение с БД при уничтожении объекта
 DatabaseManager::~DatabaseManager()
@@ -20,6 +21,12 @@ DatabaseManager& DatabaseManager::instance()
 bool DatabaseManager::connect(const QString& host, int port, const QString& dbName,
                               const QString& username, const QString& password)
 {
+    // Устанавливаем кодировку консоли для Windows 111
+    #ifdef Q_OS_WIN
+    SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(CP_UTF8);
+    #endif
+
     // Проверяем, существует ли уже соединение с таким именем
     if (QSqlDatabase::contains("search_engine_connection")) {
         m_db = QSqlDatabase::database("search_engine_connection");

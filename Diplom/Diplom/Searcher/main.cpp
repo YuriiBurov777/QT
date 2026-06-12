@@ -13,7 +13,7 @@ inline QString ru(const char* text) {
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
-    
+
     // Загрузка конфигурации базы данных
     QString configPath = "config.ini";
     QSettings settings(configPath, QSettings::IniFormat);

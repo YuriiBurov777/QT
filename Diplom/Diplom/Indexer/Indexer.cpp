@@ -142,8 +142,18 @@ void Indexer::processDirectory(const QString& directory)
             // Рекурсивный вызов для подкаталога
             processDirectory(entry.absoluteFilePath());
         } else if (entry.isFile() && shouldIndexFile(entry.absoluteFilePath())) {
+
             // Индексация файла
-            processFile(entry.absoluteFilePath());
+            QString absolutePath = entry.absoluteFilePath();
+
+            // Проверка на дубликат
+            if (m_processedFiles.contains(absolutePath)) {
+                qDebug() << "Пропущен дубликат:" << entry.fileName();
+                continue;
+            }
+
+            m_processedFiles.insert(absolutePath);
+            processFile(absolutePath);
         }
     }
 }
@@ -221,7 +231,7 @@ QString Indexer::cleanText(const QString& text)
     
     // Проходим по всем словам
     for (const QString& word : words) {
-        if (word.length() >= 3 && word.length() <= 32) {
+        if (word.length() >= MIN_WORD_LENGTH && word.length() <= MAX_WORD_LENGTH) { //111
             filteredWords.append(word);
         }
     }
@@ -241,3 +251,4 @@ QMap<QString, int> Indexer::calculateWordFrequency(const QString& text)
     
     return frequency;
 }
+

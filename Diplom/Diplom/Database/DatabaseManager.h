@@ -5,7 +5,7 @@
 #include <QSqlQuery>
 #include <QString>
 #include <QList>
-#include <QMap>
+#include <QMap> 
 
 //Структура для хранения информации о документе
 struct DocumentInfo {
@@ -32,6 +32,9 @@ struct SearchResult {
 class DatabaseManager
 {
 public:
+
+    // Константы
+    static constexpr int MAX_SEARCH_RESULTS = 10;
 
     static DatabaseManager& instance();
     

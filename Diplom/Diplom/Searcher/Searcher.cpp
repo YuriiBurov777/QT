@@ -1,6 +1,11 @@
 #include "Searcher.h"
 #include <QRegExp>
 
+// Определение констант
+constexpr int Searcher::MIN_WORD_LENGTH;
+constexpr int Searcher::MAX_WORD_LENGTH;
+constexpr int Searcher::MAX_WORDS_IN_QUERY;
+
 Searcher::Searcher()
 {
 }
@@ -10,21 +15,21 @@ QStringList Searcher::parseQuery(const QString& query)
 {
     QStringList words = query.split(" ", Qt::SkipEmptyParts);
     QStringList cleanedWords;
-    
-    for (QString word : words) {
-        word = cleanWord(word);
-        if (!word.isEmpty()) {
-            cleanedWords.append(word);
+
+    for (const QString& word : words) {
+        QString cleaned = cleanWord(word);
+        if (!cleaned.isEmpty()) {
+            cleanedWords.append(cleaned);
         }
     }
-    
+
     return cleanedWords;
 }
 
 //Проверка валидности поискового запроса
 bool Searcher::isValidQuery(const QStringList& words)
 {
-    return !words.isEmpty() && words.size() <= 4;
+     return !words.isEmpty() && words.size() <= MAX_WORDS_IN_QUERY;
 }
 
 //Очистка отдельного слова от пунктуации и нормализация
@@ -33,7 +38,7 @@ QString Searcher::cleanWord(const QString& word)
     QString cleaned = word.toLower();
     cleaned.remove(QRegExp("[^\\w]"));
     
-    if (cleaned.length() >= 3 && cleaned.length() <= 32) {
+     if (cleaned.length() >= MIN_WORD_LENGTH && cleaned.length() <= MAX_WORD_LENGTH) {
         return cleaned;
     }
     
